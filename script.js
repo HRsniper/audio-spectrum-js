@@ -24,9 +24,10 @@ window.onload = function () {
     src.connect(analyser);
     analyser.connect(audioContext.destination);
 
-    analyser.fftSize = 1024;
-    analyser.minDecibels = -80;
-    analyser.maxDecibels = -20;
+    analyser.fftSize = 1024; // default: 2048. range: 32, 64, 128, 256, 512, 1024, 2048, 4096, 16384, 32768
+    analyser.minDecibels = -80; // default: -100. range: -100...-31
+    analyser.maxDecibels = -20; // default: -30. range: -30...0
+    analyser.smoothingTimeConstant = 0.7; // default: 0.8. range: 0...0.9
 
     const bufferLength = analyser.frequencyBinCount;
     console.log(bufferLength);
@@ -55,20 +56,21 @@ window.onload = function () {
         barHeight = dataArray[i];
         // console.log(barHeight);
 
-        let r = Math.floor(barHeight + 20 * (i / bufferLength));
-        let b = Math.floor(360 * (i / bufferLength));
-        let g = 40;
+        // let r = Math.floor(barHeight + 20 * (i / bufferLength));
+        // let b = Math.floor(360 * (i / bufferLength));
+        // let g = 40;
 
         // rgb.innerHTML = `rgb(${r},${g},${b})`;
         let gradient = canvasContext.createLinearGradient(
-          CANVAS_WIDTH,
-          CANVAS_HEIGHT,
-          barWidth,
-          barHeight,
+          0,
+          0,
+          0,
+          CANVAS_HEIGHT
         );
-        gradient.addColorStop(0, "green");
-        gradient.addColorStop(0.5, "blue");
-        gradient.addColorStop(1, "red");
+        gradient.addColorStop(1.0, "green");
+        gradient.addColorStop(0.95, "blue");
+        gradient.addColorStop(0.85, "orange");
+        gradient.addColorStop(0.8, "red");
         canvasContext.fillStyle = gradient;
 
         // canvasContext.fillStyle = `rgb(${r},${g},${b})`;
@@ -87,5 +89,8 @@ window.onload = function () {
     renderFrame();
   };
 
-  spectrum(audio);
+  setTimeout(() => {
+    spectrum(audio);
+  }, 1000);
+
 };
