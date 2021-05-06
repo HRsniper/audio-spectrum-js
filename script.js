@@ -11,7 +11,7 @@ window.onload = () => {
   };
 
   const spectrum = (audio) => {
-    audio.play();
+    // audio.play();
     const audioContext = new AudioContext();
     const src = audioContext.createMediaElementSource(audio);
     const analyser = audioContext.createAnalyser();
