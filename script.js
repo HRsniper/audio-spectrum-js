@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = () => {
   const file = document.getElementById("file");
   const audio = document.getElementById("audio");
   // const rgb = document.getElementById("rgb");
@@ -10,7 +10,7 @@ window.onload = function () {
     spectrum(audio);
   };
 
-  const spectrum = function (audio) {
+  const spectrum = (audio) => {
     audio.play();
     const audioContext = new AudioContext();
     const src = audioContext.createMediaElementSource(audio);
@@ -42,7 +42,7 @@ window.onload = function () {
     let barHeight = 0;
     let frequencyWidth = 0;
 
-    function renderFrame() {
+    const renderFrame = () => {
       requestAnimationFrame(renderFrame);
 
       frequencyWidth = 0;
@@ -83,7 +83,7 @@ window.onload = function () {
 
         frequencyWidth += barWidth + 1;
       }
-    }
+    };
 
     audio.play();
     renderFrame();
@@ -92,5 +92,4 @@ window.onload = function () {
   setTimeout(() => {
     spectrum(audio);
   }, 1000);
-
 };
