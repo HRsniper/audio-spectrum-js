@@ -89,7 +89,7 @@ window.onload = () => {
     renderFrame();
   };
 
-  setTimeout(() => {
-    spectrum(audio);
-  }, 1000);
+//   setTimeout(() => {
+//     spectrum(audio);
+//   }, 1000);
 };
